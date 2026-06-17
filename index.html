@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smooth Operator — Generowanie trajektorii ruchu dla robotów przemysłowych</title>
+<meta name="description" content="Projekt Naukowo-Wdrożeniowy 3 — generowanie bezkolizyjnych trajektorii ruchu dla robotów przemysłowych. To więcej niż strona." />
+<meta property="og:title" content="Smooth Operator — Trajektorie dla robotów przemysłowych" />
+<meta property="og:description" content="To więcej niż strona. To sposób na zaliczenie kursu Projekt Naukowo-Wdrożeniowy 3." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦾</text></svg>" />
+</head>
+<body>
+
+<!-- background grid + grain -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <a class="brand" href="#" data-view="home">
+    <span class="brand-mark">◣◢</span>
+    <span class="brand-text">Smooth&nbsp;Operator</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#problem" class="nav-link" data-view="home">Problem</a>
+    <a href="#how" class="nav-link" data-view="home">Jak to działa</a>
+    <a href="#results" class="nav-link" data-view="home">Wyniki</a>
+    <a href="#materials" class="nav-link" data-view="home">Materiały</a>
+    <a href="#" class="nav-link nav-snake" data-view="snake">🐍 Snake</a>
+  </nav>
+  <button class="nav-burger" aria-label="Menu">☰</button>
+</header>
+
+<!-- ============ HOME VIEW ============ -->
+<main id="view-home" class="view view--active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="kicker reveal">
+          <span class="dot"></span> Projekt Naukowo-Wdrożeniowy&nbsp;3
+        </div>
+        <h1 class="hero-title reveal">
+          To więcej<br />niż&nbsp;strona<span class="grad">.</span>
+        </h1>
+        <p class="hero-sub reveal">
+          To sposób na zaliczenie kursu <strong>Projekt Naukowo-Wdrożeniowy 3</strong>.
+        </p>
+        <p class="hero-lede reveal">
+          A tak na poważnie: uczymy sieci neuronowe generować
+          <em>bezkolizyjne</em> trajektorie ruchu dla robotów przemysłowych —
+          szybciej, krócej i bez wjeżdżania w przeszkody.
+        </p>
+        <div class="hero-cta reveal">
+          <a href="#how" class="btn btn--primary">Zobacz jak to działa</a>
+          <a href="#" class="btn btn--ghost" data-view="snake">…albo zagraj w Snake →</a>
+        </div>
+      </div>
+
+      <div class="hero-media reveal">
+        <div class="media-frame">
+          <img src="media/image4.gif" alt="Robot przemysłowy generujący trajektorię ruchu" loading="eager" />
+          <div class="media-tag"><span class="rec"></span> sim · live trajectory</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-strip">
+      <div class="strip-item"><b>~1030</b><span>scen treningowych</span></div>
+      <div class="strip-item"><b>0.00</b><span>kolizji (po finetuningu)</span></div>
+      <div class="strip-item"><b>100%</b><span>kompletność trajektorii</span></div>
+      <div class="strip-item"><b>5</b><span>autorów o imieniu Bartosz*</span></div>
+    </div>
+    <p class="footnote-tiny reveal">* dwóch. Ale brzmi lepiej jako pięciu.</p>
+  </section>
+
+  <!-- DISCLAIMER / humor band -->
+  <section class="band reveal">
+    <div class="band-inner">
+      <span class="band-emoji">⏳</span>
+      <p>
+        <b>Pełne ujawnienie:</b> tę stronę dostaliśmy do zrobienia na tydzień
+        przed oddaniem projektu. Wymagania mówiły „prosta i bezobsługowa”.
+        Zinterpretowaliśmy to twórczo. Jedyna w&nbsp;100% przetestowana
+        funkcjonalność to <a href="#" data-view="snake">zakładka ze Snakeiem</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem" class="section">
+    <div class="section-head reveal">
+      <span class="sec-num">01</span>
+      <h2>Problem</h2>
+      <p class="sec-tag">Po co to wszystko?</p>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal">
+        <h3>Roboty muszą się ruszać. Najlepiej bez kolizji.</h3>
+        <p>
+          W fabryce ramię robota musi przejść z punktu A do punktu B —
+          omijając przeszkody, inne maszyny i samego siebie. Ręczne
+          programowanie takich trajektorii jest żmudne, a klasyczne
+          planery często wybierają ścieżki dłuższe niż to konieczne.
+        </p>
+        <ul class="ticks">
+          <li>Większość badań działa <b>online, na podstawie sensorów</b></li>
+          <li>Zwykle <b>„one shot”</b> — jedna próba, bez optymalizacji</li>
+        </ul>
+      </div>
+      <div class="card card--accent reveal">
+        <h3>Nasze podejście</h3>
+        <p>Optymalizujemy <b>offline</b>, na statycznym, znanym zadaniu — i optymalizujemy dwie rzeczy naraz:</p>
+        <div class="pill-row">
+          <span class="pill">🛡️ bezkolizyjność</span>
+          <span class="pill">⏱️ czas wykonania cyklu</span>
+        </div>
+        <p class="muted">
+          Model generuje rozwiązanie raz, a potem mamy czas, żeby
+          dopieścić ścieżkę pod konkretną instancję zadania.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section">
+    <div class="section-head reveal">
+      <span class="sec-num">02</span>
+      <h2>Jak to działa</h2>
+      <p class="sec-tag">Wejście → magia → wyjście</p>
+    </div>
+
+    <div class="io reveal">
+      <div class="io-box">
+        <span class="io-label">Wejście</span>
+        <h4>Środowisko + punkty start/koniec</h4>
+        <p class="muted">Scena 3D oraz pozycje, które robot ma odwiedzić.</p>
+      </div>
+      <div class="io-arrow">
+        <span class="io-model">Smooth&nbsp;Operator</span>
+        →
+      </div>
+      <div class="io-box io-box--out">
+        <span class="io-label">Wyjście</span>
+        <h4>Punkty pośrednie — trajektoria</h4>
+        <p class="muted">Gładka, bezkolizyjna ścieżka ruchu ramienia.</p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:42px">
+      <div class="card reveal">
+        <div class="card-ic">🌐</div>
+        <h3>Reprezentacje 3D</h3>
+        <p>Scenę kodujemy na trzy sposoby — <b>Point Cloud</b>, <b>Voxel Grid</b> i <b>SDF</b> — żeby sieć „rozumiała” geometrię przeszkód.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-ic">🧠</div>
+        <h3>Architektura</h3>
+        <p>Enkoder chmury punktów (MLP) + enkoder 3D CNN łączą się w reprezentację sceny, fuzjowaną z kontekstem zadania. Wyjście: punkty trajektorii + flaga stopu.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-ic">🎯</div>
+        <h3>Funkcja kosztu</h3>
+        <p>Minimalizujemy <code>Σ metryka × waga</code> — głównie kolizyjność i czas wykonania, pomocniczo m.in. długość trajektorii.</p>
+      </div>
+    </div>
+
+    <!-- Simulator -->
+    <div class="feature reveal">
+      <div class="feature-media">
+        <div class="media-frame">
+          <img data-src="media/image9.gif" alt="Symulator — tysiące robotów ewaluowanych równolegle" loading="lazy" class="lazy" />
+          <div class="media-tag"><span class="rec"></span> NVIDIA IsaacSim · 1000s envs</div>
+        </div>
+      </div>
+      <div class="feature-copy">
+        <span class="sec-num">↳</span>
+        <h3>Symulator: nasz własny „Digital Twin”</h3>
+        <p>Zbudowaliśmy cyfrowego bliźniaka zadania z prawdziwej fabryki, oparty na <b>NVIDIA IsaacSim</b> i <b>IsaacLab</b>.</p>
+        <ul class="ticks">
+          <li>Ewaluacja <b>tysięcy trajektorii jednocześnie</b></li>
+          <li>Pomiar metryk jakości w locie</li>
+          <li>Trening modeli bezpośrednio w symulacji</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Data -->
+    <div class="feature feature--rev reveal">
+      <div class="feature-media">
+        <div class="media-frame">
+          <img data-src="media/image10.gif" alt="Realistyczne dane — robot manipulujący obiektami" loading="lazy" class="lazy" />
+          <div class="media-tag"><span class="rec"></span> dataset · real-ish scenes</div>
+        </div>
+      </div>
+      <div class="feature-copy">
+        <span class="sec-num">↳</span>
+        <h3>Skąd wzięliśmy dane?</h3>
+        <p>Problem z dostępnością danych rozwiązaliśmy po swojemu — własnym generatorem (inspirowanym Roboballet od Intrinsic.AI):</p>
+        <div class="data-split">
+          <div class="data-chip"><b>~1000</b> scen syntetycznych<span>generowane automatycznie</span></div>
+          <div class="data-chip"><b>~30</b> scen realistycznych<span>tworzone ręcznie</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="section">
+    <div class="section-head reveal">
+      <span class="sec-num">03</span>
+      <h2>Najciekawsze wyniki</h2>
+      <p class="sec-tag">Liczby, które faktycznie spadły tam, gdzie chcieliśmy</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat reveal">
+        <div class="stat-num" data-count="100" data-suffix="%">0%</div>
+        <div class="stat-label">kompletność trajektorii<br />(model fine-tuning)</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat-num" data-count="0" data-decimals="2" data-suffix="">0.00</div>
+        <div class="stat-label">kolizji na danych<br />realistycznych</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat-num" data-count="16.64" data-decimals="2" data-suffix="s">0s</div>
+        <div class="stat-label">czas cyklu<br />(lepszy niż człowiek: 19.47 s)</div>
+      </div>
+    </div>
+
+    <div class="card card--wide reveal">
+      <h3>Dwa wnioski, którymi się chwalimy</h3>
+      <div class="finding">
+        <span class="finding-no">1</span>
+        <p><b>Trening na danych syntetycznych poprawia wyniki na danych prawdziwych.</b>
+        Z ~6.4 kolizji i 60% kompletności „przed treningiem” zeszliśmy do
+        <b>~2.0 kolizji i 99.5% kompletności</b> po treningu na 200 scenach syntetycznych.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-no">2</span>
+        <p><b>Finetuning pod docelową scenę wygrywa.</b>
+        Na danych realistycznych model fine-tuning osiągnął
+        <b>0.00 kolizji</b>, 100% kompletności i krótszy cykl
+        (<b>16.64 s</b>) niż trajektoria wykonana przez człowieka (19.47 s).</p>
+      </div>
+    </div>
+
+    <p class="footnote-tiny reveal">
+      Wszystkie liczby pochodzą z naszej prezentacji końcowej. Tak, sprawdziliśmy je dwa razy. Prawie.
+    </p>
+  </section>
+
+  <!-- MATERIALS -->
+  <section id="materials" class="section">
+    <div class="section-head reveal">
+      <span class="sec-num">04</span>
+      <h2>Materiały</h2>
+      <p class="sec-tag">Linki, które warto podmienić przed oddaniem 👀</p>
+    </div>
+    <div class="link-grid">
+      <a class="link-card reveal" href="#" data-todo>
+        <span class="link-ic">📊</span>
+        <span class="link-t">Prezentacja</span>
+        <span class="link-s">slajdy z obrony →</span>
+      </a>
+      <a class="link-card reveal" href="#" data-todo>
+        <span class="link-ic">🖼️</span>
+        <span class="link-t">Plakat</span>
+        <span class="link-s">wersja PDF →</span>
+      </a>
+      <a class="link-card reveal" href="#" data-todo>
+        <span class="link-ic">💻</span>
+        <span class="link-t">Repozytorium</span>
+        <span class="link-s">kod na GitHub →</span>
+      </a>
+      <a class="link-card reveal" href="#" data-todo>
+        <span class="link-ic">🎥</span>
+        <span class="link-t">Wideo</span>
+        <span class="link-s">demo trajektorii →</span>
+      </a>
+      <a class="link-card reveal" href="#" data-todo>
+        <span class="link-ic">📄</span>
+        <span class="link-t">Raport / artykuł</span>
+        <span class="link-s">dokumentacja →</span>
+      </a>
+      <a class="link-card reveal" href="#" data-todo>
+        <span class="link-ic">🗂️</span>
+        <span class="link-t">Dane</span>
+        <span class="link-s">zbiór scen →</span>
+      </a>
+    </div>
+    <p class="footnote-tiny reveal">
+      Linki to placeholdery — kliknięcie przypomni Wam, że trzeba je uzupełnić.
+    </p>
+  </section>
+
+</main>
+
+<!-- ============ SNAKE VIEW ============ -->
+<section id="view-snake" class="view view--snake">
+  <div class="snake-wrap">
+    <div class="snake-head">
+      <h2>Trajectory&nbsp;Snake 🐍</h2>
+      <p>Jedyna w pełni działająca funkcjonalność tej strony. Generuj trajektorię.
+         Zbieraj punkty pośrednie. Nie wjeżdżaj w przeszkody (czyli siebie).</p>
+    </div>
+
+    <div class="snake-stage">
+      <div class="snake-hud">
+        <div class="hud-item"><span>Wynik</span><b id="snake-score">0</b></div>
+        <div class="hud-item"><span>Rekord</span><b id="snake-best">0</b></div>
+        <div class="hud-item"><span>Status</span><b id="snake-status">gotowy</b></div>
+      </div>
+      <canvas id="snake-canvas" width="480" height="480" aria-label="Gra Snake"></canvas>
+      <div class="snake-overlay" id="snake-overlay">
+        <div class="overlay-card">
+          <h3 id="overlay-title">Naciśnij START</h3>
+          <p id="overlay-text">Sterowanie: strzałki lub WASD. Na telefonie — przyciski poniżej.</p>
+          <button class="btn btn--primary" id="snake-start">▶ Start</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="snake-controls">
+      <div class="dpad">
+        <button data-dir="up" aria-label="góra">▲</button>
+        <div class="dpad-mid">
+          <button data-dir="left" aria-label="lewo">◀</button>
+          <button data-dir="down" aria-label="dół">▼</button>
+          <button data-dir="right" aria-label="prawo">▶</button>
+        </div>
+      </div>
+      <div class="snake-tip">
+        <p><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> / <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> — ruch</p>
+        <p><kbd>Spacja</kbd> — pauza · <kbd>R</kbd> — restart</p>
+      </div>
+    </div>
+
+    <p class="footnote-tiny" style="text-align:center">
+      Tak, naprawdę poświęciliśmy na to czas, którego nie mieliśmy.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="brand brand--lg"><span class="brand-mark">◣◢</span> Smooth Operator</div>
+      <p class="muted">Generowanie trajektorii ruchu dla robotów przemysłowych.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Zespół</h5>
+      <p>Bartosz Tramś · Bartosz Mila · Bartosz Sierzputowski · Krzysztof Szydłowski · Łukasz Dróżdż</p>
+    </div>
+    <div class="footer-col">
+      <h5>Opiekun</h5>
+      <p>dr inż. Przemysław Dolata</p>
+      <h5 style="margin-top:14px">Kurs</h5>
+      <p>Projekt Naukowo-Wdrożeniowy 3</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> — zbudowane w tydzień, hostowane na GitHub Pages, bezobsługowe (oby).</span>
+  </div>
+</footer>
+
+<script src="assets/snake.js" defer></script>
+<script src="assets/main.js" defer></script>
+</body>
+</html>
