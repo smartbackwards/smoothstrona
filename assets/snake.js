@@ -78,9 +78,12 @@
     dir = nextDir;
     const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
-    // kolizja ze ścianą lub sobą
-    if (head.x < 0 || head.y < 0 || head.x >= GRID || head.y >= GRID ||
-        snake.some(s => s.x === head.x && s.y === head.y)) {
+    // zawijanie przez ściany (trajektoria wychodzi z drugiej strony)
+    head.x = (head.x + GRID) % GRID;
+    head.y = (head.y + GRID) % GRID;
+
+    // koniec gry tylko przy kolizji z samym sobą
+    if (snake.some(s => s.x === head.x && s.y === head.y)) {
       draw();
       gameOver();
       return;

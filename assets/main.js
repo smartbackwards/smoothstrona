@@ -105,6 +105,24 @@
     });
   });
 
+  // ---- faux ad ----
+  const adConfirm = document.getElementById('ad-confirm');
+  const adResult  = document.getElementById('ad-result');
+  const AD_MSG = {
+    '3 lata':    '✅ Bezpieczny wybór. Twój wnuk dokończy cykl produkcyjny.',
+    '2 godziny': '🤝 Rozsądnie. Dokładnie tak długo trwało wczoraj.',
+    'minuta':    '🔥 Ambitnie! Dział BHP już do Ciebie dzwoni.',
+    '20 sekund': '⚠️ KOLIZJA. Mówiliśmy: ostrożnie. (na szczęście to tylko symulacja)',
+  };
+  adConfirm?.addEventListener('click', () => {
+    const sel = document.querySelector('input[name="czas"]:checked');
+    adResult.textContent = AD_MSG[sel?.value] || 'Wybierz opcję, mistrzu optymalizacji.';
+    adResult.hidden = false;
+  });
+  document.querySelector('.ad-close')?.addEventListener('click', e => {
+    e.target.closest('.adwrap').style.display = 'none';
+  });
+
   // ---- rok w stopce ----
   document.getElementById('year').textContent = new Date().getFullYear();
 
