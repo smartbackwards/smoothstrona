@@ -1,4 +1,10 @@
 _shot_*.png
+_*.png
+_*.txt
 *.tmp
 .DS_Store
 Thumbs.db
+
+# Prezentacja (~228 MB) przekracza limit 100 MB pliku na GitHubie —
+# hostuj ją zewnętrznie (Google Drive / OneDrive) i podlinkuj w sekcji Materiały.
+*.pptx

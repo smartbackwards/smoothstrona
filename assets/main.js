@@ -123,6 +123,25 @@
     e.target.closest('.adwrap').style.display = 'none';
   });
 
+  // ---- pętla treningowa na żywo (humorystyczna eksplozja) ----
+  const trainBtn    = document.getElementById('train-run');
+  const trainVideo  = document.getElementById('train-video');
+  const trainPoster = document.getElementById('train-poster');
+  const trainTag    = trainVideo?.closest('.media-frame')?.querySelector('.media-tag');
+  trainBtn?.addEventListener('click', () => {
+    trainPoster.classList.add('is-hidden');
+    if (trainTag) trainTag.lastChild.textContent = ' training loop · BOOM 💥';
+    trainVideo.currentTime = 0;
+    trainVideo.play();
+  });
+  trainVideo?.addEventListener('ended', () => {
+    trainBtn.textContent = '↻ Spróbuj jeszcze raz (zbiega, obiecujemy)';
+    trainPoster.querySelector('.loop-hint').textContent =
+      'po dotrenowaniu liczba kolizji schodzi do zera. ta epoka jeszcze nie.';
+    if (trainTag) trainTag.lastChild.textContent = ' training loop · epoch ???';
+    trainPoster.classList.remove('is-hidden');
+  });
+
   // ---- rok w stopce ----
   document.getElementById('year').textContent = new Date().getFullYear();
 

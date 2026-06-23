@@ -4,14 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Smooth Operator — Generowanie trajektorii ruchu dla robotów przemysłowych</title>
-<meta name="description" content="Projekt Naukowo-Wdrożeniowy 3 — generowanie bezkolizyjnych trajektorii ruchu dla robotów przemysłowych. To więcej niż strona." />
+<meta name="description" content="Projekt Naukowo-Wdrożeniowy 3 — generowanie bezkolizyjnych trajektorii ruchu dla robotów przemysłowych z użyciem uczenia ze wzmocnieniem i cyfrowego bliźniaka sceny." />
 <meta property="og:title" content="Smooth Operator — Trajektorie dla robotów przemysłowych" />
-<meta property="og:description" content="To więcej niż strona. To sposób na zaliczenie kursu Projekt Naukowo-Wdrożeniowy 3." />
+<meta property="og:description" content="Gdy robotyka przemysłowa spotyka AI. Generowanie bezkolizyjnych, zoptymalizowanych czasowo trajektorii ruchu dla robotów przemysłowych." />
 <meta property="og:type" content="website" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/styles.css?v=4" />
+<link rel="stylesheet" href="assets/styles.css?v=5" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦾</text></svg>" />
 </head>
 <body>
@@ -48,15 +48,16 @@
           <span class="dot"></span> Projekt Naukowo-Wdrożeniowy&nbsp;3
         </div>
         <h1 class="hero-title reveal">
-          To więcej<br />niż&nbsp;strona<span class="grad">.</span>
+          Gdy robotyka<br />przemysłowa<br />spotyka&nbsp;AI<span class="grad">.</span>
         </h1>
         <p class="hero-sub reveal">
-          To sposób na zaliczenie kursu <strong>Projekt Naukowo-Wdrożeniowy 3</strong>.
+          Uczymy modele generować <strong>bezkolizyjne</strong> trajektorie ruchu
+          dla robotów przemysłowych.
         </p>
         <p class="hero-lede reveal">
-          A tak na poważnie: uczymy sieci neuronowe generować
-          <em>bezkolizyjne</em> trajektorie ruchu dla robotów przemysłowych —
-          szybciej, krócej i bez wjeżdżania w przeszkody.
+          Działamy <em>offline</em>, na cyfrowym bliźniaku znanej sceny — dzięki
+          czemu mamy czas, by trajektoria była nie tylko bezpieczna, ale i krótsza
+          w czasie cyklu niż ta zaprogramowana ręcznie.
         </p>
         <div class="hero-cta reveal">
           <a href="#how" class="btn btn--primary">Zobacz jak to działa</a>
@@ -111,9 +112,14 @@
           planery często wybierają ścieżki dłuższe niż to konieczne.
         </p>
         <ul class="ticks">
-          <li>Większość badań działa <b>online, na podstawie sensorów</b></li>
-          <li>Zwykle <b>„one shot”</b> — jedna próba, bez optymalizacji</li>
+          <li><b>Duża skala:</b> fabryki to tysiące robotów i dziesiątki tysięcy trajektorii</li>
+          <li><b>Duży koszt:</b> programowanie offline robi się raz, ale działa w produkcji latami</li>
+          <li><b>Duży efekt:</b> każda poprawa to realne oszczędności i niezawodność linii</li>
         </ul>
+        <p class="muted">
+          W praktyce buduje się i weryfikuje sceny w narzędziach takich jak
+          <b>Delmia</b>, <b>Process Simulate</b> czy <b>RobotStudio</b>.
+        </p>
       </div>
       <div class="card card--accent reveal">
         <h3>Nasze podejście</h3>
@@ -126,6 +132,37 @@
           Model generuje rozwiązanie raz, a potem mamy czas, żeby
           dopieścić ścieżkę pod konkretną instancję zadania.
         </p>
+      </div>
+    </div>
+
+    <div class="feature reveal">
+      <div class="feature-copy">
+        <span class="sec-num">↳</span>
+        <h3>Jak to się robi dziś?</h3>
+        <p>
+          Współczesne planery najczęściej naprawiają kolizje <b>iteracyjnie</b>:
+          wykrywają zderzenie, zatrzymują się, wstawiają punkt korekcyjny i dzielą
+          trasę na nowe segmenty — a potem powtarzają to rekurencyjnie, aż znikną
+          kolizje. Działa, ale każda poprawka może rodzić kolejne, mniejsze kolizje.
+        </p>
+        <div class="pill-row">
+          <span class="pill">1 · kolizja</span>
+          <span class="pill">2 · pauza</span>
+          <span class="pill">3 · korekta</span>
+          <span class="pill">4 · nowe segmenty</span>
+          <span class="pill">5 · powtórz</span>
+        </div>
+      </div>
+      <div class="feature-media">
+        <div class="card card--accent">
+          <h3 style="margin-bottom:14px">Co odróżnia nasz problem?</h3>
+          <div class="compare">
+            <div class="compare-row compare-head"><span>Większość researchu</span><span>Smooth Operator</span></div>
+            <div class="compare-row"><span>praca z sensorami (online)</span><span>pełny model 3D (digital twin)</span></div>
+            <div class="compare-row"><span>jednorazowa odpowiedź (one-shot)</span><span>liczy się tylko końcowa trajektoria</span></div>
+            <div class="compare-row"><span>zmienne otoczenie, szybka reakcja</span><span>jest czas na optymalizację</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -163,13 +200,42 @@
       </div>
       <div class="card reveal">
         <div class="card-ic">🧠</div>
-        <h3>Architektura</h3>
-        <p>Enkoder chmury punktów (MLP) + enkoder 3D CNN łączą się w reprezentację sceny, fuzjowaną z kontekstem zadania. Wyjście: punkty trajektorii + flaga stopu.</p>
+        <h3>Architektura (agent RL)</h3>
+        <p>Enkodery sceny i kontekstu zadania dają agentowi „wzrok przestrzenny”. <b>Strategia agenta</b> generuje punkty pośrednie, a <b>symulator</b> zwraca nagrodę. Bez reprezentacji sceny model zna cele, ale nie widzi przeszkód między nimi.</p>
       </div>
       <div class="card reveal">
         <div class="card-ic">🎯</div>
-        <h3>Funkcja kosztu</h3>
-        <p>Minimalizujemy <code>Σ metryka × waga</code> — głównie kolizyjność i czas wykonania, pomocniczo m.in. długość trajektorii.</p>
+        <h3>Co optymalizujemy</h3>
+        <p><b>Główne (priorytet):</b> bezkolizyjność i czas przejazdu.<br>
+        <b>Pomocnicze:</b> kompletność ↑, długość trasy ↓, płynność ↑, głębokość kolizji ↓.</p>
+      </div>
+    </div>
+
+    <!-- Training -->
+    <div class="feature reveal">
+      <div class="feature-copy">
+        <span class="sec-num">↳</span>
+        <h3>Jak trenujemy: uczenie ze wzmocnieniem</h3>
+        <p>
+          Rozważaliśmy heurystyki, sampling i algorytmy genetyczne — ostatecznie
+          postawiliśmy na <b>uczenie ze wzmocnieniem (RL)</b>, a z wstępnych
+          eksperymentów wybraliśmy algorytm <b>PPO</b>.
+        </p>
+        <ul class="ticks">
+          <li>Agent uczy się <b>bezpośrednio w symulacji</b>, na tysiącach scen naraz</li>
+          <li>Nagroda łączy bezkolizyjność, czas i metryki pomocnicze</li>
+          <li>Najpierw <b>model ogólny</b>, potem dostrajanie pod konkretną scenę</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <div class="media-frame loopframe">
+          <video id="train-video" class="loop-video" src="explosion.mp4" muted playsinline preload="metadata"></video>
+          <div class="loop-poster" id="train-poster">
+            <button type="button" class="btn btn--primary" id="train-run">▶ Odpal pętlę treningową na żywo</button>
+            <p class="loop-hint">ostrzeżenie: trajektoria może być jeszcze niedotrenowana</p>
+          </div>
+          <div class="media-tag"><span class="rec"></span> training loop · epoch ???</div>
+        </div>
       </div>
     </div>
 
@@ -246,16 +312,33 @@
       </div>
       <div class="finding">
         <span class="finding-no">2</span>
-        <p><b>Finetuning pod docelową scenę wygrywa.</b>
-        Na danych realistycznych model fine-tuning osiągnął
-        <b>0 kolizji</b>, 100% kompletności i krótszy cykl
-        (<b>16.64 s</b>) niż trajektoria wykonana przez człowieka (19.47 s).</p>
+        <p><b>Już model bazowy bije człowieka.</b>
+        Na scenach tworzonych ręcznie średni czas trajektorii spadł z
+        <b>19.47 s</b> (człowiek) do <b>17.74 s</b> (model bazowy), a po
+        dostrojeniu do docelowej sceny do <b>16.64 s</b> — przy <b>0 kolizji</b>
+        i 100% kompletności.</p>
+      </div>
+      <div class="finding">
+        <span class="finding-no">3</span>
+        <p><b>Dostrajanie zbiega tam, gdzie trzeba.</b>
+        W trakcie dotrenowywania konkretnej sceny nagroda rośnie, czas przejazdu
+        spada, a liczba kolizji <b>schodzi do zera</b>. Skoro liczymy offline i mamy
+        czas — wręcz błędem byłoby z tej możliwości nie skorzystać.</p>
       </div>
     </div>
 
     <p class="footnote-tiny reveal">
       Wszystkie liczby pochodzą z naszej prezentacji końcowej. Tak, sprawdziliśmy je dwa razy. Prawie.
     </p>
+
+    <div class="card card--wide reveal" style="margin-top:26px">
+      <h3>Dalsze kroki</h3>
+      <div class="pill-row">
+        <span class="pill">🏭 transfer na rzeczywiste linie produkcyjne</span>
+        <span class="pill">🤖🤖 zadania z wieloma robotami</span>
+        <span class="pill">⚡ szybszy trening i efektywniejsza strategia</span>
+      </div>
+    </div>
   </section>
 
   <!-- FAUX AD (humor) -->
@@ -287,15 +370,15 @@
       <p class="sec-tag">Linki, które warto podmienić przed oddaniem 👀</p>
     </div>
     <div class="link-grid">
-      <a class="link-card reveal" href="#" data-todo>
+      <a class="link-card reveal" href="https://docs.google.com/presentation/d/1ydaerk9Ep5LOhPXkmKlgEGJV8dfXLyT4/edit?usp=sharing" target="_blank" rel="noopener">
         <span class="link-ic">📊</span>
         <span class="link-t">Prezentacja</span>
-        <span class="link-s">slajdy z obrony →</span>
+        <span class="link-s">slajdy z obrony (Google Slides) →</span>
       </a>
-      <a class="link-card reveal" href="#" data-todo>
+      <a class="link-card reveal" href="G04%20-%20Generowanie%20trajektorii%20robot%C3%B3w%20przemys%C5%82owych.pdf" target="_blank" rel="noopener">
         <span class="link-ic">🖼️</span>
         <span class="link-t">Plakat</span>
-        <span class="link-s">wersja PDF →</span>
+        <span class="link-s">wersja PDF (A0) →</span>
       </a>
       <a class="link-card reveal" href="#" data-todo>
         <span class="link-ic">💻</span>
@@ -394,7 +477,7 @@
   </div>
 </footer>
 
-<script src="assets/snake.js?v=4" defer></script>
-<script src="assets/main.js?v=4" defer></script>
+<script src="assets/snake.js?v=5" defer></script>
+<script src="assets/main.js?v=5" defer></script>
 </body>
 </html>
