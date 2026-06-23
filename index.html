@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/styles.css?v=5" />
+<link rel="stylesheet" href="assets/styles.css?v=6" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦾</text></svg>" />
 </head>
 <body>
@@ -77,22 +77,9 @@
       <div class="strip-item"><b>~1030</b><span>scen treningowych</span></div>
       <div class="strip-item"><b>0</b><span>kolizji (po finetuningu)</span></div>
       <div class="strip-item"><b>100%</b><span>kompletność trajektorii</span></div>
-      <div class="strip-item"><b>5</b><span>autorów o imieniu Bartosz*</span></div>
+      <div class="strip-item"><b>5</b><span>autorów, wszyscy o imieniu Bartosz*</span></div>
     </div>
-    <p class="footnote-tiny reveal">* trzech. Ale brzmi lepiej jako pięciu.</p>
-  </section>
-
-  <!-- DISCLAIMER / humor band -->
-  <section class="band reveal">
-    <div class="band-inner">
-      <span class="band-emoji">⏳</span>
-      <p>
-        <b>Pełne ujawnienie:</b> tę stronę dostaliśmy do zrobienia na tydzień
-        przed oddaniem projektu. Wymagania mówiły „prosta i bezobsługowa”.
-        Zinterpretowaliśmy to twórczo. Jedyna w&nbsp;100% przetestowana
-        funkcjonalność to <a href="#" data-view="snake">zakładka ze Snakeiem</a>.
-      </p>
-    </div>
+    <p class="footnote-tiny reveal">* tak naprawdę było tylko trzech Bartoszów — to wciąż dużo, ale stronę robiło AI, więc jakieś błędy w liczeniu muszą być.</p>
   </section>
 
   <!-- PROBLEM -->
@@ -302,6 +289,28 @@
       </div>
     </div>
 
+    <!-- gotowe rozwiązanie (gif z prezentacji) -->
+    <div class="feature reveal" style="margin-top:48px">
+      <div class="feature-media">
+        <div class="media-frame">
+          <video class="loop-video" src="result-finetuning.mp4" autoplay loop muted playsinline preload="metadata"
+                 aria-label="Trajektoria z fine-tuningiem na realistycznej scenie"></video>
+          <div class="media-tag"><span class="rec"></span> fine-tuning · scena manualna</div>
+        </div>
+      </div>
+      <div class="feature-copy">
+        <span class="sec-num">↳</span>
+        <h3>Tak wygląda gotowe rozwiązanie</h3>
+        <p>
+          Trajektoria wygenerowana przez <b>dotrojony model</b> na ręcznie zbudowanej,
+          realistycznej scenie. Ramię odwiedza po kolei wszystkie punkty docelowe
+          gładką, <b>bezkolizyjną</b> ścieżką — to dokładnie ten przebieg, który dał
+          0 kolizji i 16.64 s czasu cyklu.
+        </p>
+        <p class="muted">Nagranie wprost z naszej prezentacji końcowej (eksperyment fine-tuning, dane manualne).</p>
+      </div>
+    </div>
+
     <div class="card card--wide reveal">
       <h3>Dwa wnioski, którymi się chwalimy</h3>
       <div class="finding">
@@ -367,7 +376,7 @@
     <div class="section-head reveal">
       <span class="sec-num">04</span>
       <h2>Materiały</h2>
-      <p class="sec-tag">Linki, które warto podmienić przed oddaniem 👀</p>
+      <p class="sec-tag">Do pobrania i obejrzenia</p>
     </div>
     <div class="link-grid">
       <a class="link-card reveal" href="https://docs.google.com/presentation/d/1ydaerk9Ep5LOhPXkmKlgEGJV8dfXLyT4/edit?usp=sharing" target="_blank" rel="noopener">
@@ -380,30 +389,7 @@
         <span class="link-t">Plakat</span>
         <span class="link-s">wersja PDF (A0) →</span>
       </a>
-      <a class="link-card reveal" href="#" data-todo>
-        <span class="link-ic">💻</span>
-        <span class="link-t">Repozytorium</span>
-        <span class="link-s">kod na GitHub →</span>
-      </a>
-      <a class="link-card reveal" href="#" data-todo>
-        <span class="link-ic">🎥</span>
-        <span class="link-t">Wideo</span>
-        <span class="link-s">demo trajektorii →</span>
-      </a>
-      <a class="link-card reveal" href="#" data-todo>
-        <span class="link-ic">📄</span>
-        <span class="link-t">Raport / artykuł</span>
-        <span class="link-s">dokumentacja →</span>
-      </a>
-      <a class="link-card reveal" href="#" data-todo>
-        <span class="link-ic">🗂️</span>
-        <span class="link-t">Dane</span>
-        <span class="link-s">zbiór scen →</span>
-      </a>
     </div>
-    <p class="footnote-tiny reveal">
-      Linki to placeholdery — kliknięcie przypomni Wam, że trzeba je uzupełnić.
-    </p>
   </section>
 
 </main>

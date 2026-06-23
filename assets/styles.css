@@ -268,7 +268,7 @@ em{color:var(--teal);font-style:normal;font-weight:600}
 .finding b{color:var(--ink)}
 
 /* ---------- materials ---------- */
-.link-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.link-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .link-card{
   display:flex;flex-direction:column;gap:6px;
   padding:26px;border-radius:var(--radius);
